@@ -22,9 +22,11 @@ Evaluar y calcular RMSE (Sklearn/NumPy): Haz predicciones sobre el conjunto de p
 Firma de la función:
 
 Python
+'
 def calcular_rmse_arbol_baseline(df, target_col, test_size=0.2):
     # Tu código aquí
     pass
+'
 Argumentos esperados:
 
 df: Un objeto DataFrame de la librería pandas que contiene los datos crudos.
