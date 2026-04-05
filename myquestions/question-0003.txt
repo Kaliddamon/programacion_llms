@@ -1,4 +1,4 @@
-Segmentación de Clientes y Métrica de Silueta
+Problema 3: Segmentación de Clientes y Métrica de Silueta
 El Contexto:
 El equipo de marketing te ha pasado un registro de interacciones y compras de clientes. Quieren lanzar una campaña personalizada, por lo que te han pedido agrupar a los clientes en distintos segmentos basándose en ciertas columnas de comportamiento. Quieren saber qué tan bien definidos están esos grupos matemáticamente antes de tomar decisiones.
 
