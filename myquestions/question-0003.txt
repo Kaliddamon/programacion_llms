@@ -1,34 +1,11 @@
-Problema 3: Segmentación de Clientes y Métrica de Silueta
-El Contexto:
-El equipo de marketing te ha pasado un registro de interacciones y compras de clientes. Quieren lanzar una campaña personalizada, por lo que te han pedido agrupar a los clientes en distintos segmentos basándose en ciertas columnas de comportamiento. Quieren saber qué tan bien definidos están esos grupos matemáticamente antes de tomar decisiones.
-
-Tu Misión:
-Crea una función que tome los datos, agrupe a los usuarios usando el algoritmo K-Means y evalúe la calidad de esos grupos mediante el "Silhouette Score" (Coeficiente de Silueta). Debes seguir estos pasos:
-
-Filtrar y limpiar (Pandas): Crea un subconjunto del DataFrame quedándote solo con las columnas solicitadas para la segmentación. Elimina cualquier fila que contenga valores nulos (NaN) usando Pandas.
-
-Preparar la matriz (NumPy): Convierte el DataFrame resultante en un array bidimensional de NumPy para alimentar el modelo.
-
-Agrupar los datos (Sklearn): Instancia y ajusta un modelo KMeans con el número de clústeres indicado. Utiliza el parámetro random_state=42 y n_init='auto' (o 10, según la versión) para evitar variaciones en el resultado.
-
-Evaluar los clústeres (Sklearn): Calcula y devuelve el "Silhouette Score" utilizando la matriz de características y las etiquetas predichas por K-Means.
-
-Firma de la función:
-
-Python
-'
-def evaluar_segmentacion_kmeans(df, columnas_comportamiento, n_clusters):
-    # Tu código aquí
-    pass
-'
-Argumentos esperados:
-
-df: Un DataFrame de pandas con la información de los clientes.
-
-columnas_comportamiento: Una lista de str con los nombres de las columnas que se usarán para el clustering.
-
-n_clusters: Un int que define cuántos grupos (clústeres) debe formar K-Means.
-
-Objeto a devolver:
-
-Debe devolver un único número de tipo float que represente el valor del Silhouette Score de los grupos formados.
+Problema 3: Evaluación Probabilística con Modelos de Mezcla Gaussiana (GMM)
+El Contexto: Estás analizando la densidad de usuarios en una aplicación de transporte. Quieres medir qué tan "probable" es que los nuevos datos pertenezcan a la distribución de datos históricos utilizando un enfoque probabilístico basado en GMM (Gaussian Mixture Models).
+Tu Misión: Escribe una función que calcule la log-verosimilitud promedio de un conjunto de datos.
+Recibe un DataFrame con las características numéricas de los usuarios.
+Estandariza los datos usando StandardScaler de sklearn.
+Instancia y ajusta un GaussianMixture de sklearn.mixture con n_components=3 y random_state=42.
+Utiliza el método score del modelo, el cual calcula el logaritmo de la verosimilitud (log-likelihood) promedio por muestra.
+Devuelve este valor como un float.
+Nombre de la función: log_verosimilitud_promedio_gmm
+Argumentos: df (pd.DataFrame)
+Objeto a devolver: float (el valor de la log-verosimilitud promedio).
