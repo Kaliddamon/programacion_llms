@@ -1,4 +1,4 @@
-Detección de Anomalías y Perfilado de Datos "Sanos"
+Problema 4: Detección de Anomalías y Perfilado de Datos "Sanos"
 El Contexto:
 Estás analizando transacciones financieras para detectar posibles fraudes. Tienes un conjunto de datos exclusivamente numérico, pero sabes que contiene algunos registros anómalos. Quieres aislar e ignorar esas anomalías ("outliers") para poder calcular el valor promedio real (el perfil "sano") de cada variable en transacciones legítimas.
 
