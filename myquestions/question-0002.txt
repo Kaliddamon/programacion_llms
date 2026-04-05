@@ -1,4 +1,4 @@
-Reducción de Dimensionalidad y Varianza Explicada
+Problema 2: Reducción de Dimensionalidad y Varianza Explicada
 El Contexto:
 Trabajas analizando datos de sensores industriales. Cada máquina tiene decenas de sensores y la cantidad de información es abrumadora. Tu objetivo es aplicar Análisis de Componentes Principales (PCA) para reducir la dimensionalidad de los datos, pero antes necesitas saber cuánta información (varianza) serías capaz de retener si te quedas solo con un número específico de componentes.
 
