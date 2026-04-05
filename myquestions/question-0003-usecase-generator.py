@@ -1,41 +1,30 @@
 import pandas as pd
 import numpy as np
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.mixture import GaussianMixture
 
 def generar_caso_de_uso():
-    # Componente aleatorio: filas, clusters y datos
-    n_rows = np.random.randint(150, 400)
-    k_rnd = np.random.randint(2, 6)
-    
-    comportamiento_cols = ['gasto_total', 'visitas_mes', 'tiempo_sesion']
-    
-    # Simular datos agrupados usando distribuciones normales desplazadas
-    data = np.vstack([
-        np.random.randn(n_rows//2, 3) * 5 + 10,
-        np.random.randn(n_rows - n_rows//2, 3) * 5 + 50
-    ])
-    
-    df_aleatorio = pd.DataFrame(data, columns=comportamiento_cols)
-    df_aleatorio['id_cliente'] = range(n_rows) # Columna a ignorar
-    
-    # Inyectar NaNs para forzar limpieza
-    nulos_idx = np.random.choice(df_aleatorio.index, 8, replace=False)
-    df_aleatorio.loc[nulos_idx, 'visitas_mes'] = np.nan
-    
-    # 1. Definir el input
+    # 1. Componente aleatorio: tamaño del conjunto de datos
+    n_rows = np.random.randint(200, 600)
+    n_cols = np.random.randint(2, 5)
+
+    # Generamos datos aleatorios simulando agrupaciones densas
+    data = np.random.randn(n_rows, n_cols) * np.random.randint(1, 5) + np.random.randint(-10, 10, size=n_cols)
+    df = pd.DataFrame(data, columns=[f'feature_{i}' for i in range(n_cols)])
+
+    # Diccionario de entrada
     input_dict = {
-        'df': df_aleatorio,
-        'columnas_comportamiento': comportamiento_cols,
-        'n_clusters': k_rnd
+        'df': df
     }
-    
+
     # 2. Calcular el output esperado
-    df_filtrado = df_aleatorio[comportamiento_cols].dropna()
-    X = df_filtrado.to_numpy()
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(df)
+
+    gmm = GaussianMixture(n_components=3, random_state=42)
+    gmm.fit(X_scaled)
     
-    kmeans = KMeans(n_clusters=k_rnd, random_state=42, n_init='auto')
-    etiquetas = kmeans.fit_predict(X)
-    score_esperado = float(silhouette_score(X, etiquetas))
-    
-    return input_dict, score_esperado
+    # El método score calcula la log-verosimilitud promedio
+    output_esperado = float(gmm.score(X_scaled))
+
+    return input_dict, output_esperado
