@@ -16,9 +16,11 @@ Calcular la varianza acumulada (NumPy): Extrae el atributo explained_variance_ra
 Firma de la función:
 
 Python
+'
 def varianza_acumulada_pca(df, columnas_features, n_components):
     # Tu código aquí
     pass
+'
 Argumentos esperados:
 
 df: Un objeto DataFrame de la librería pandas con los datos crudos.
