@@ -1,4 +1,4 @@
-Título del Problema: Predicción Base y Filtrado de Características Numéricas
+Problema 1: Predicción Base y Filtrado de Características Numéricas
 El Contexto:
 Trabajas como científico de datos en una empresa de bienes raíces y te han entregado un conjunto de datos "crudo" en un DataFrame de Pandas. Este conjunto contiene múltiples variables sobre las propiedades (como precios, metros cuadrados, número de habitaciones, etc.), pero también tiene columnas de texto libre, variables categóricas sin procesar y varias filas con datos faltantes (NaN).
 
