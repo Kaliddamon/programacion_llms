@@ -1,2 +1,5 @@
 # programacion_llms
-Entrega 1 - Programación con LLMS, Modelos I
+Programación con LLMS, Modelos I
+
+Nombre: Cristian Sánchez García
+Correo: cristian.sanchez3@udea.edu.co
