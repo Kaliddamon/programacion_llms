@@ -1,40 +1,11 @@
-Problema 1: Predicción Base y Filtrado de Características Numéricas
-El Contexto:
-Trabajas como científico de datos en una empresa de bienes raíces y te han entregado un conjunto de datos "crudo" en un DataFrame de Pandas. Este conjunto contiene múltiples variables sobre las propiedades (como precios, metros cuadrados, número de habitaciones, etc.), pero también tiene columnas de texto libre, variables categóricas sin procesar y varias filas con datos faltantes (NaN).
-
-Para establecer una línea base de predicción rápida (baseline), tu equipo ha decidido que, por ahora, ignorarán las columnas no numéricas e intentarán predecir el precio utilizando un árbol de decisión únicamente con los datos numéricos completos.
-
-Tu Misión:
-Implementa una función de Python que automatice el preprocesamiento básico, el entrenamiento de un modelo de árbol de regresión y el cálculo de la métrica de error (RMSE). La función debe realizar exactamente los siguientes pasos:
-
-Filtrar datos numéricos (Pandas/NumPy): A partir del DataFrame original, quédate únicamente con las columnas que sean de tipo numérico (puedes apoyarte en Pandas y los tipos de datos de NumPy). Asume que la columna objetivo (target) es numérica y se mantendrá tras este filtro.
-
-Limpiar nulos (Pandas): Elimina cualquier fila que contenga al menos un valor faltante (NaN) en el subconjunto de datos numéricos filtrado.
-
-Separar variables: Divide el DataFrame resultante en la matriz de características X (todas las columnas numéricas excepto la objetivo) y el vector objetivo y.
-
-Dividir los datos (Sklearn): Utiliza train_test_split para dividir X e y en conjuntos de entrenamiento y prueba. Debes usar el tamaño de prueba especificado en los argumentos y fijar el parámetro random_state=42 para asegurar la reproducibilidad.
-
-Entrenar el modelo (Sklearn): Instancia y entrena un modelo DecisionTreeRegressor (fijando también su random_state=42) utilizando los datos de entrenamiento.
-
-Evaluar y calcular RMSE (Sklearn/NumPy): Haz predicciones sobre el conjunto de prueba, calcula el Error Cuadrático Medio (MSE) y finalmente utiliza NumPy para calcular la raíz cuadrada de este valor, obteniendo así el RMSE.
-
-Firma de la función:
-
-Python
-'
-def calcular_rmse_arbol_baseline(df, target_col, test_size=0.2):
-    # Tu código aquí
-    pass
-'
-Argumentos esperados:
-
-df: Un objeto DataFrame de la librería pandas que contiene los datos crudos.
-
-target_col: Un str que indica el nombre de la columna que contiene la variable a predecir (la variable objetivo).
-
-test_size: Un float (por defecto 0.2) que indica la proporción del dataset que se reservará para la prueba.
-
-Objeto a devolver:
-
-Debe devolver un único número de tipo float que represente el RMSE (Root Mean Squared Error) calculado sobre el conjunto de prueba. No debe devolver ninguna otra estructura de datos.
+Problema 1: Detección Robusta de Anomalías con Envolvente Elíptica
+El Contexto: Trabajas en el área de seguridad de una entidad financiera analizando transacciones que siguen una distribución aproximadamente normal (Gaussiana). A diferencia de otros métodos de detección de anomalías, tu equipo quiere usar la Envolvente Elíptica, que es más robusta para datos con distribución conocida pero contaminada con valores atípicos.
+Tu Misión: Escribe una función que limpie los datos, ajuste el modelo y cuente cuántas anomalías se detectaron.
+Recibe un DataFrame y un parámetro de contaminación.
+Utiliza SimpleImputer de sklearn para rellenar nulos con la media.
+Instancia y entrena EllipticEnvelope de sklearn.covariance con el parámetro contamination y un random_state=42.
+Utiliza el modelo para predecir las etiquetas (1 para normal, -1 para anomalía).
+Utiliza numpy para contar cuántas filas fueron marcadas como -1.
+Nombre de la función: conteo_anomalias_elipticas
+Argumentos: df (pd.DataFrame), contaminacion (float)
+Objeto a devolver: int (el número total de anomalías encontradas).
