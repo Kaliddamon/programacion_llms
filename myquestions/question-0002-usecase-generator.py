@@ -1,37 +1,31 @@
-import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+from sklearn.gaussian_process import GaussianProcessRegressor
 
 def generar_caso_de_uso():
-    # Componente aleatorio: dimensiones y componentes
-    n_rows = np.random.randint(100, 300)
-    n_sensores = np.random.randint(5, 12)
-    n_comp_rnd = np.random.randint(2, n_sensores - 1)
-    
-    columnas_sensores = [f'sensor_{i}' for i in range(n_sensores)]
-    
-    # Generación de datos
-    df_aleatorio = pd.DataFrame(
-        np.random.rand(n_rows, n_sensores) * 50, 
-        columns=columnas_sensores
-    )
-    # Agregar una columna irrelevante
-    df_aleatorio['fecha'] = pd.date_range(start='1/1/2026', periods=n_rows)
-    
-    # 1. Definir el input
+    # 1. Componente aleatorio: cantidad de datos de entrenamiento/prueba y características
+    n_train = np.random.randint(50, 150)
+    n_test = np.random.randint(20, 50)
+    n_features = np.random.randint(1, 5)
+
+    # Generamos matrices aleatorias
+    X_train = np.random.rand(n_train, n_features) * 10
+    # y_train como una función no lineal con algo de ruido
+    y_train = np.sin(X_train[:, 0]) + np.random.normal(0, 0.1, n_train) 
+    X_test = np.random.rand(n_test, n_features) * 10
+
+    # Diccionario de entrada
     input_dict = {
-        'df': df_aleatorio,
-        'columnas_features': columnas_sensores,
-        'n_components': n_comp_rnd
+        'X_train': X_train,
+        'y_train': y_train,
+        'X_test': X_test
     }
-    
+
     # 2. Calcular el output esperado
-    X = df_aleatorio[columnas_sensores]
-    X_scaled = StandardScaler().fit_transform(X)
+    gpr = GaussianProcessRegressor(random_state=42)
+    gpr.fit(X_train, y_train)
     
-    pca = PCA(n_components=n_comp_rnd, random_state=42)
-    pca.fit(X_scaled)
-    varianza_esperada = np.cumsum(pca.explained_variance_ratio_)
-    
-    return input_dict, varianza_esperada
+    # Predecir pidiendo la desviación estándar
+    predicciones, std = gpr.predict(X_test, return_std=True)
+    output_esperado = std # np.ndarray unidimensional
+
+    return input_dict, output_esperado
