@@ -1,44 +1,40 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import mean_squared_error
+from sklearn.impute import SimpleImputer
+from sklearn.covariance import EllipticEnvelope
 
 def generar_caso_de_uso():
-    # Componente aleatorio: número de filas y tamaño de prueba
+    # 1. Componente aleatorio: número de registros, columnas y nivel de contaminación
     n_rows = np.random.randint(100, 500)
-    test_size_rnd = round(np.random.uniform(0.15, 0.4), 2)
-    
-    # Generación de datos aleatorios
-    df_aleatorio = pd.DataFrame({
-        'num_1': np.random.rand(n_rows) * 100,
-        'num_2': np.random.randn(n_rows) * 10,
-        'cat_1': np.random.choice(['A', 'B', 'C'], n_rows), # Columna no numérica para filtrar
-        'target_price': np.random.rand(n_rows) * 5000 + 1000
-    })
-    
-    # Inyectar algunos valores nulos aleatoriamente en una columna numérica
-    indices_nulos = np.random.choice(df_aleatorio.index, size=int(n_rows*0.05), replace=False)
-    df_aleatorio.loc[indices_nulos, 'num_1'] = np.nan
-    
-    # 1. Definir el input
+    n_cols = np.random.randint(2, 6)
+    contaminacion_rnd = round(np.random.uniform(0.01, 0.15), 3)
+
+    # Generamos datos normales (Gaussianos)
+    data = np.random.normal(loc=0, scale=1, size=(n_rows, n_cols))
+    df = pd.DataFrame(data, columns=[f'var_{i}' for i in range(n_cols)])
+
+    # Inyectamos valores nulos de forma aleatoria para forzar la imputación
+    num_nulos = int(n_rows * 0.05)
+    for _ in range(num_nulos):
+        fila = np.random.randint(0, n_rows)
+        col = np.random.randint(0, n_cols)
+        df.iloc[fila, col] = np.nan
+
+    # Diccionario de entrada
     input_dict = {
-        'df': df_aleatorio,
-        'target_col': 'target_price',
-        'test_size': test_size_rnd
+        'df': df,
+        'contaminacion': contaminacion_rnd
     }
+
+    # 2. Calcular el output esperado según la lógica del problema
+    imputer = SimpleImputer(strategy='mean')
+    df_imputado = imputer.fit_transform(df)
+
+    modelo = EllipticEnvelope(contamination=contaminacion_rnd, random_state=42)
+    modelo.fit(df_imputado)
+    predicciones = modelo.predict(df_imputado)
     
-    # 2. Calcular el output esperado según las reglas del problema
-    df_num = df_aleatorio.select_dtypes(include=[np.number])
-    df_clean = df_num.dropna()
-    X = df_clean.drop(columns=['target_price'])
-    y = df_clean['target_price']
-    
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size_rnd, random_state=42)
-    
-    modelo = DecisionTreeRegressor(random_state=42)
-    modelo.fit(X_train, y_train)
-    predicciones = modelo.predict(X_test)
-    rmse_esperado = float(np.sqrt(mean_squared_error(y_test, predicciones)))
-    
-    return input_dict, rmse_esperado
+    # Contar las anomalías (-1)
+    output_esperado = int(np.sum(predicciones == -1))
+
+    return input_dict, output_esperado
