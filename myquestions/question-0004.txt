@@ -16,9 +16,11 @@ Filtrar y promediar (NumPy): Utilizando máscaras de NumPy, filtra el dataset or
 Firma de la función:
 
 Python
+'
 def centroides_sin_anomalias(df, contamination=0.05):
     # Tu código aquí
     pass
+'
 Argumentos esperados:
 
 df: Un DataFrame de pandas que contiene únicamente columnas numéricas continuas.
