@@ -16,9 +16,11 @@ Evaluar los clústeres (Sklearn): Calcula y devuelve el "Silhouette Score" utili
 Firma de la función:
 
 Python
+'
 def evaluar_segmentacion_kmeans(df, columnas_comportamiento, n_clusters):
     # Tu código aquí
     pass
+'
 Argumentos esperados:
 
 df: Un DataFrame de pandas con la información de los clientes.
