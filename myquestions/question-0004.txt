@@ -1,0 +1,30 @@
+Detección de Anomalías y Perfilado de Datos "Sanos"
+El Contexto:
+Estás analizando transacciones financieras para detectar posibles fraudes. Tienes un conjunto de datos exclusivamente numérico, pero sabes que contiene algunos registros anómalos. Quieres aislar e ignorar esas anomalías ("outliers") para poder calcular el valor promedio real (el perfil "sano") de cada variable en transacciones legítimas.
+
+Tu Misión:
+Diseña una función que utilice "Isolation Forest" para detectar los valores atípicos, los elimine del conjunto de datos y devuelva la media matemática de cada característica solo de los datos considerados normales. Los pasos son:
+
+Aislar datos (Pandas/NumPy): Asegúrate de trabajar con todo el DataFrame proporcionado (asume que ya es 100% numérico y no tiene nulos) y conviértelo a un array de NumPy si lo consideras necesario.
+
+Entrenar el detector (Sklearn): Instancia un modelo IsolationForest utilizando la tasa de contaminación (contamination) pasada por argumento y fija el random_state=42.
+
+Predecir anomalías (Sklearn): Usa el modelo para predecir sobre los mismos datos. Recuerda que Isolation Forest devuelve 1 para los datos normales y -1 para las anomalías.
+
+Filtrar y promediar (NumPy): Utilizando máscaras de NumPy, filtra el dataset original para quedarte solo con las filas normales (las que obtuvieron 1). Finalmente, calcula la media aritmética de cada columna sobre este dataset limpio.
+
+Firma de la función:
+
+Python
+def centroides_sin_anomalias(df, contamination=0.05):
+    # Tu código aquí
+    pass
+Argumentos esperados:
+
+df: Un DataFrame de pandas que contiene únicamente columnas numéricas continuas.
+
+contamination: Un float (por defecto 0.05) que indica la proporción esperada de anomalías en el conjunto de datos.
+
+Objeto a devolver:
+
+Debe devolver un array de NumPy (unidimensional) que contenga la media calculada para cada columna del conjunto de datos, después de haber excluido las filas anómalas. El tamaño del array debe ser igual al número de columnas de df.
