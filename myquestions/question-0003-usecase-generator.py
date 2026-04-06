@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.mixture import GaussianMixture
 
-def generar_caso_de_uso_3():
+def generar_caso_de_uso_log_verosimilitud_promedio_gmm():
     # 1. Componente aleatorio: tamaño del conjunto de datos
     n_rows = np.random.randint(200, 600)
     n_cols = np.random.randint(2, 5)
