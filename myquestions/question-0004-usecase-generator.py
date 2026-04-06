@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import OPTICS
 
-def generar_caso_de_uso():
+def generar_caso_de_uso_obtener_alcanzabilidad_optics():
     # 1. Componente aleatorio: dimensiones de la matriz y el parámetro min_muestras
     n_rows = np.random.randint(100, 300)
     n_cols = np.random.randint(2, 6)
