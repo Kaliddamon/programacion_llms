@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.gaussian_process import GaussianProcessRegressor
 
-def generar_caso_de_uso():
+def generar_caso_de_uso_incertidumbre_prediccion_gaussiana():
     # 1. Componente aleatorio: cantidad de datos de entrenamiento/prueba y características
     n_train = np.random.randint(50, 150)
     n_test = np.random.randint(20, 50)
