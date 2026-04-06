@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.impute import SimpleImputer
 from sklearn.covariance import EllipticEnvelope
 
-def generar_caso_de_uso():
+def generar_caso_de_uso_conteo_anomalias_elipticas():
     # 1. Componente aleatorio: número de registros, columnas y nivel de contaminación
     n_rows = np.random.randint(100, 500)
     n_cols = np.random.randint(2, 6)
