@@ -1,0 +1,20 @@
+Todo indica ser que el problema está en cómo está programado el evaluador, ya que con la línea de código:
+
+gen_funcs = [obj for obj in gen_ns.values() if isinstance(obj, types.FunctionType) and obj.__module__ == 'usecase_module']
+gen_output = gen_funcs[0]()
+
+Está buscando la primera función que se encuentre en el archivo .py del generador de casos de uso, y en este caso el del compañero empieza por:
+
+import pandas as pd
+
+def resumir_por_segmento(
+    df: pd.DataFrame,
+    col_segmento: str,
+    col_cliente: str,
+    col_monto: str
+): ...
+
+def generar_caso_de_uso_resumir_por_segmento():
+...
+
+Porque personalmente probando con la respuesta que doy y usando el generador de casos de uso que existe, la respuesta coincide con lo esperado.
